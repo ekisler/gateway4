@@ -1,0 +1,57 @@
+
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Verificar si el usuario existe
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: "Credenciales invalidas" });
+    }
+
+    // Comparar las contraseñas
+    if (password !== user.password) {
+      return res.status(400).json({ msg: "Credenciales invalidas" });
+    }
+
+    // Guardar la información del usuario en la sesión
+    req.session.user = user;
+
+    // Usuario autenticado
+    res.json({ msg: `Inicio de sesión exitosa de usuario: ${user.name}` });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Error del Servidor");
+  }
+});
+
+// Ruta protegida
+app.get('/dashboard', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ msg: "No autorizado" })
+  }
+
+  res.json({ msg: `Bienvenido, ${req.session.user.name}!` })
+})
+
+app.post("/logout", (req, res) => {
+  if (req.session) {
+  req.session.destroy(err => {
+    if (err) {
+      console.error(err)
+      res.status(500).send('Error del Servidor')
+    } else {
+      res.send('Cierre de sesion exitoso')
+    }
+  })
+} else {
+  res.send('No hay sesion para cerrar')
+}
+});
