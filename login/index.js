@@ -9,7 +9,7 @@ const crypto = require("crypto");
 const User = require("./models.js");
 
 const app = express();
-const PORT = 8006;
+const PORT = process.env.PORT || 8006;
 const mongoUri = process.env.MONGO_URI;
 
 function generateSecretKey() {
@@ -17,7 +17,6 @@ function generateSecretKey() {
 }
 
 const secretKey = generateSecretKey()
-console.log('Secret key:', secretKey)
 
 async function connectToDatabase() {
   try {
@@ -88,5 +87,5 @@ app.post("/login", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Login services listening OK on PORT ${PORT}`);
+  console.log(`Login services listening on PORT ${PORT}`);
 });

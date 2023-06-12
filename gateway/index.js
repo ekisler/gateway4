@@ -45,6 +45,14 @@ app.use(
   })
 );
 
+app.use(
+  "/logout",
+  createProxyMiddleware({
+    target: "http://logout:8007",
+    changeOrigin: true,
+  })
+)
+
 app.listen(PORT, () => {
   console.log(`Gateway conectado correctamente en el PUERTO: ${PORT} 💥`);
 });

@@ -38,11 +38,27 @@ services:
     env_file:
       - .env
 
-  auth:
-    container_name: auth
+  registers:
+    container_name: registers
     restart: always
-    build: ./auth
+    build: ./registers
     ports:
       - ":8005"
     env_file:
       - .env
+
+  login:
+    container_name: login
+    restart: always
+    build: ./login
+    ports:
+      - ":8006"
+    env_file:
+      - .env
+
+  logout:
+    container_name: logout
+    restart: always
+    build: ./logout
+    ports:
+      - ":8007"
