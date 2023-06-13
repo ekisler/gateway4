@@ -1,3 +1,5 @@
+const { registerValidations } = require("./registerValidations");
+
 module.exports = {
-  registerValidations: require("./registerValidations"),
+  registerValidations,
 };

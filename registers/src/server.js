@@ -1,14 +1,12 @@
 const express = require("express");
 const morgan = require("morgan");
-const userController = require("./routes");
-const createRegister = require("./routes");
+const registers = require("./routes");
 const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
 
-server.get("/registers", userController);
-server.post("/registers", createRegister);
+server.use(registers);
 
 server.use("*", (req, res) => {
   res.status(404).send("Not found");

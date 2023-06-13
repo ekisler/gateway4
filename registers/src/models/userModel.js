@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
           return true;
         },
         message: (props) =>
-          `El correo electrónico ${props.value} ya esta registrado`,
+          `El correo electrónico ${props.value} ya está registrado`,
       },
     },
     password: {
