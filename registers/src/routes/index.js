@@ -1,7 +1,6 @@
 const express = require("express");
 const { registerValidations } = require("../middlewares/registerValidations");
-const createRegister = require("../controllers/createRegister");
-const { userController } = require("../controllers/userController");
+const { createRegister, userController } = require("../controllers");
 const router = express.Router();
 
 router.get("/registers", userController);

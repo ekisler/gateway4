@@ -1,11 +1,10 @@
-const { catchedAsync } = require("../utils");
 const userController = require("./userController");
 const createRegister = require("./createRegister");
+const connectDB = require("../db/db");
 
-const userControllerWrapper = catchedAsync(userController, createRegister);
+connectDB();
 
 module.exports = {
-  userController,
   createRegister,
-  userControllerWrapper,
+  userController,
 };
